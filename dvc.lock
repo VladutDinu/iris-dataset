@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python .\src\load_data.py .\data\data.csv
+    deps:
+    - path: src/load_data.py
+      md5: 1a0148847f18843978da73b3cde5295c
+      size: 571
+    outs:
+    - path: .\data\data.csv
+      md5: bfc7c964de974673920fd850a17258d3
+      size: 3361
+  train:
+    cmd: python .\src\train.py .\data\data.csv .\model\model.pkl
+    deps:
+    - path: .\data\data.csv
+      md5: bfc7c964de974673920fd850a17258d3
+      size: 3361
+    - path: .\src\train.py
+      md5: cc675ef1fc4998afe9c53ddc7947aeea
+      size: 899
+    params:
+      params.yaml:
+        prepare.split: 130
+    outs:
+    - path: .\model\model.pkl
+      md5: a2b3333a9f60a57a58abf4cf1ef1ff7e
+      size: 12001
+  predicy:
+    cmd: python .\src\predict.py .\data\data.csv .\model\model.pkl
+    deps:
+    - path: .\data\data.csv
+      md5: bfc7c964de974673920fd850a17258d3
+      size: 3361
+    - path: .\model\model.pkl
+      md5: a2b3333a9f60a57a58abf4cf1ef1ff7e
+      size: 12001
+    - path: .\src\predict.py
+      md5: 8d423b1e5b85d306eace6e9a1a889608
+      size: 711
+    params:
+      params.yaml:
+        prepare.split: 130
+  predict:
+    cmd: python .\src\predict.py .\data\data.csv .\model\model.pkl
+    deps:
+    - path: .\data\data.csv
+      md5: bfc7c964de974673920fd850a17258d3
+      size: 3361
+    - path: .\model\model.pkl
+      md5: a2b3333a9f60a57a58abf4cf1ef1ff7e
+      size: 12001
+    - path: .\src\predict.py
+      md5: 8d423b1e5b85d306eace6e9a1a889608
+      size: 711
+    params:
+      params.yaml:
+        prepare.split: 130

@@ -1,0 +1,24 @@
+stages:
+  load_data:
+    cmd: python .\src\load_data.py .\data\data.csv
+    deps:
+    - src/load_data.py
+    outs:
+    - .\data\data.csv
+  train:
+    cmd: python .\src\train.py .\data\data.csv .\model\model.pkl
+    deps:
+    - .\data\data.csv
+    - .\src\train.py
+    params:
+    - prepare.split
+    outs:
+    - .\model\model.pkl
+  predict:
+    cmd: python .\src\predict.py .\data\data.csv .\model\model.pkl
+    deps:
+    - .\data\data.csv
+    - .\model\model.pkl
+    - .\src\predict.py
+    params:
+    - prepare.split

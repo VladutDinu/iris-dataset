@@ -13,7 +13,7 @@ import pickle
 import yaml
 data_path = sys.argv[1]
 model_path = sys.argv[2]
-params = yaml.safe_load(open('params.yml'))
+params = yaml.safe_load(open('params.yaml'))
 split = params['prepare']['split']
 
 df = pd.read_csv(data_path).drop(['index'], axis=1)
